@@ -26,12 +26,18 @@
     --peculiarities-list-bg: #F5F4FA;
     --footer-social-bg: rgba(255, 255, 255, 0.1);
     --banner-linear-gradient: rgba(47, 48, 58, 0.4);
-    --timing-function: cubic-bezier(0.4, 0, 0.2, 1)
-   
+    --timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --overlay-bg-color: rgba(33, 150, 243, 0.9);
+    --doing-subtitle-bg: rgba(47, 48, 58, 0.8);
+    --backdrop-color: rgba(0, 0, 0, 0.2);
+    --modal-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+                        0px 1px 1px rgba(0, 0, 0, 0.14),
+                        0px 2px 1px rgba(0, 0, 0, 0.2);
+                
 }
-* {
+/* * {
     outline: 1px solid tomato;
-}
+} */
 /* Повторяющие стили на странице */
 body {
     margin: 0; /* - убирает рамку вокруг body */
@@ -239,7 +245,58 @@ ul {
 .main-button:focus {
     box-shadow: var(--main-button-shadow)
 }
+/* По умолчанию backdrop скрыт через js  */
+.backdrop {
+    position: fixed;
+    /* - фиксирован но всему экрану */
+    top: 0;
+    left: 0;
+    /* По всей высоте и ширине окна */
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    /* - backdrop был за doing */
+    opacity: 1;
 
+    transition: opacity 250ms var(--timing-function);
+}
+/* поведение backdrop когда скрывается */
+.backdrop.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    /*  - может пропускать через себя нажатие */
+}
+/* модальное окно */
+.modal {
+    position: absolute;
+    min-width: 528px;
+    min-height: 581px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white-tx-bg-color);
+    box-shadow: var(--modal-box-shadow);
+    border-radius: 4px;
+}
+/* кнопка в модальном окне */
+.modal-button {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    right: 8px;
+    top: 8px;
+
+    width: 30px;
+    height: 30px;
+
+    background: var(--white-tx-bg-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    cursor: pointer;
+}
 /* Заголовок особенности скрыт */
 .peculiarities-title {
     font-size: 0;
@@ -303,6 +360,24 @@ ul {
     display: block;
     min-width: 100%;
     min-height: auto;
+}
+.doing-item {
+    position: relative;
+}
+.doing-subtitle {
+    position: absolute;
+    padding-top: 27px;
+    padding-bottom: 27px;
+    bottom: 0;
+    width: 100%;
+    color: var(--white-tx-bg-color);
+    background-color: var(--doing-subtitle-bg);
+
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+    z-index: 1;
 }
 .doing-title,
 .team-title,
@@ -525,7 +600,7 @@ ul {
 .project-link {
     text-decoration: none;
 }
-.project-descr>.title {
+.project-header>.title {
     color: var(--main-text-color);
 
     font-weight: 700;
@@ -533,7 +608,7 @@ ul {
     line-height: 2.0;
     letter-spacing: 0.06em;   
 }
-.project-descr>.subtitle {
+.project-header>.subtitle {
     margin-top: 4px;
     color: var(--second-text-color);
 
@@ -562,7 +637,7 @@ ul {
 .project-link:focus {
     box-shadow: var(--project-shadow)
 }
-.portfolio-project .project-descr {
+.portfolio-project .project-header {
     padding: 20px 24px;
     border: var(--project-border-style);
     border-width: 0 1px 1px 1px;
@@ -573,23 +648,34 @@ ul {
     max-width: 100%;
     height: auto;
 }
-.doing-item {
+/* обёртка для картинки и оверлей */
+.project-overlay {
     position: relative;
+    overflow: hidden; /* - скрывает всё, что выходит за область блока */
 }
-.doing-background{
+.overlay-descr {
     position: absolute;
-    background-color: rgba(47, 48, 58, 0.8);
+    padding: 63px 23px;
+    
     width: 100%;
-    height: 70px;
-    bottom: 0px;
-    padding-top: 27px;
-    padding-bottom: 27px;
-}
-.doing-subtitle {
-    font-weight: 700;
-    font-size: 14px;
-    text-transform: uppercase;
+    height: 100%;
+    background: var(--overlay-bg-color);
+
+    bottom: 0;
+    transform: translateY(100%);/*  - о оси y опускается вниз на всю высоту родителя */
+
+    font-size: 18px;
+    line-height: 1.56;
     color: var(--white-tx-bg-color);
-    text-align: center;
+
+    transition: transform 250ms var(--timing-function);
 }
+.project-link:hover .overlay-descr,
+.project-link:focus .overlay-descr {
+    transform: translateY(0)
+}
+
+
+
+
 

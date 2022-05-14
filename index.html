@@ -62,7 +62,16 @@
       <section class="section banner">
         <div class="container">
           <h1 class="banner-title">Эффективные решения для вашего бизнеса</h1>
-          <button class="main-button" type="button">Заказать услугу</button>
+          <button class="main-button" type="button" data-modal-open>Заказать услугу</button>
+          <div class="backdrop is-hidden" data-modal>
+            <div class="modal">
+              <button class="modal-button" data-modal-close>
+                <svg width="11" height="11">
+                  <use href="./image/icons/symbol-defs.svg#icon-cross"></use>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
       <!--особенности-->
@@ -105,24 +114,16 @@
           <ul class="doing-items">
             <li class="doing-item">
               <img class="doing-img" src="image/doing/box_1.jpg" alt="Комьютер" width="370" />
-
-              <div class="doing-background">
-                <h3 class="doing-subtitle">Десктопные приложения</h3>
-              </div>
+              <h3 class="doing-subtitle">Десктопные приложения</h3>
             </li>
             <li class="doing-item">
               <img class="doing-img" src="image/doing/box_2.jpg" alt="Ноутбук" width="370" />
-
-              <div class="doing-background">
-                <h3 class="doing-subtitle">Мобильные приложения</h3>
-              </div>
+              <h3 class="doing-subtitle">Мобильные приложения</h3>
             </li>
             <li class="doing-item">
               <img class="doing-img" src="image/doing/box_3.jpg" alt="Планшет" width="370" />
 
-              <div class="doing-background">
-                <h3 class="doing-subtitle">Дизайнерские решения</h3>
-              </div>
+              <h3 class="doing-subtitle">Дизайнерские решения</h3>
             </li>
           </ul>
         </div>
@@ -416,5 +417,6 @@
         </div>
       </div>
     </footer>
+    <script src="./js/modal.js"></script>
   </body>
 </html>
