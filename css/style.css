@@ -26,11 +26,12 @@
     --peculiarities-list-bg: #F5F4FA;
     --footer-social-bg: rgba(255, 255, 255, 0.1);
     --banner-linear-gradient: rgba(47, 48, 58, 0.4);
+    --timing-function: cubic-bezier(0.4, 0, 0.2, 1)
    
 }
-/* * {
+* {
     outline: 1px solid tomato;
-} */
+}
 /* Повторяющие стили на странице */
 body {
     margin: 0; /* - убирает рамку вокруг body */
@@ -66,6 +67,7 @@ ul {
 }
 /* хедер */
 .header {
+    position: relative;
     background-color: var(--white-tx-bg-color);
     border-bottom: var(--header-border)
 }
@@ -104,6 +106,7 @@ ul {
 }
 .header-list>.link {
     display: block; /* - У ссылок не работает вертикальная геометрия, потому им нужно ставить display block */
+    position: relative;
     padding-top: 30px;
     padding-bottom: 30px;
     color: var(--main-text-color);
@@ -112,16 +115,43 @@ ul {
     line-height: 1.14;
     letter-spacing: 0.02em;
     text-decoration: none;
+    
+    transition: color 250ms var(--timing-function);
 }
 .header-list>.link:hover,
-.header-list>.link:focus {
-    color: var(--hover-focus-color);
-}
-/* Подсветка ссылки активной страницы */
+.header-list>.link:focus,
 .link.current {
     color: var(--hover-focus-color);
 }
+/* нижнее подчёркивание в меню */
+.header-list>.link.current::after,
+.header-list>.link:after {
+    content: '';
+
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    display: block;
+    width: 0;
+    height: 4px;
+    background-color: var(--hover-focus-color);
+    border-radius: 2px;
+
+    opacity: 0; /* - не видно по умолчанию подчёркивание в меню*/
+    transition: opacity 250ms var(--timing-function), 
+                width 250ms var(--timing-function)  ;
+}
+.header-list>.link:hover::after {
+    opacity: 1;
+    width:100%;
+}
+.header-list>.link.current::after {
+    opacity: 1;
+    width: 100%;
+}
 .header-contacts {
+    /* display: inline-flex; */
     display: flex;
     align-items: center;
     margin-left: auto; /* - контакты отодвигаем в право  */
@@ -131,6 +161,7 @@ ul {
 }
 .header-contact>.email,
 .header-contact>.phone {
+    
     display: flex;
     align-items: center;
     padding-top: 30px;
@@ -142,6 +173,8 @@ ul {
     line-height: 1.14;
     letter-spacing: 0.02em;
     text-decoration: none;
+
+    transition: color 250ms var(--timing-function);
 }
 .header-contact>.email:hover,
 .header-contact>.email:focus,
@@ -188,7 +221,6 @@ ul {
 .main-button {
     margin-top: 30px;
     padding: 10px 32px;
-
     border: none;
     border-radius: 4px;
 
@@ -217,7 +249,7 @@ ul {
     display: flex;
 }
 .peculiarities-list {
-    width: calc((100% - 90px) / 4); /* - три отступа по 30px */
+    width: calc((100% - 90px) / 4); /* 90px- три отступа по 30px */
 }
 .peculiarities-list::before {
     display: block; /* - ставим, потому, что не работает геометрия */
@@ -252,9 +284,7 @@ ul {
 }
 .peculiarities-list>.subtitle {
     margin-top: 10px;
-
     color: var(--second-text-color);
-    
     line-height: 1.71;  
 }
 /* у секции "Чем Занимаемся" отсутствует padding-top */
@@ -293,7 +323,6 @@ ul {
 }
 .team-card {
     background: var(--white-tx-bg-color);
-    
     box-shadow: var(--team-card-shadow);
     border-radius: 0px 0px 4px 4px;
 }
@@ -338,6 +367,8 @@ ul {
     justify-content: center;
     align-items: center;
     color: var(--link-color);
+    transition: color 250ms var(--timing-function),
+                background-color 250ms var(--timing-function);
 }
 .social-link:hover,
 .social-link:focus {
@@ -366,6 +397,9 @@ ul {
     border-radius: 4px;
     width: 170px;
     height: 92px;
+
+    transition: color 250ms var(--timing-function),
+                border-color 250ms var(--timing-function);
 }
 .client-link:hover,
 .client-link:focus {
@@ -405,7 +439,9 @@ ul {
 
     text-decoration: none;
 
-    cursor: pointer
+    cursor: pointer;
+
+    transition: color 250ms var(--timing-function);
 }
 .footer-contact>.email:hover,
 .footer-contact>.email:focus,
@@ -434,19 +470,18 @@ ul {
 }
 .footer-social .social-link {
     background: var(--footer-social-bg);
+    
 }
 .footer-social .social-link:hover,
 .footer-social .social-link:focus {
     background: var(--hover-focus-color);
 }
-
 .social-footer +.social-footer {
     margin-left: 10px;
 }
 .footer-icons {
     margin-top: 20px;
 }
-
 /* portfolio  */
 /* Главного заголвка Портфолио нет в макете, потому скрыт */
 .portfolio-title {
@@ -473,7 +508,11 @@ ul {
     border-radius: 4px;
     border: none;
 
-    cursor: pointer
+    cursor: pointer;
+
+    transition: background-color 250ms var(--timing-function),
+                color 250ms var(--timing-function),
+                box-shadow 250ms var(--timing-function);
 }
 .filter-button.active,
 .filter-button:hover,
@@ -517,6 +556,7 @@ ul {
 }
 .project-link { /* - ссылку дедаем блочной, так как на нее не работает геометрия и эффекты ховера */
     display: block;
+    transition: box-shadow 250ms var(--timing-function);
 }
 .project-link:hover,
 .project-link:focus {
@@ -527,15 +567,29 @@ ul {
     border: var(--project-border-style);
     border-width: 0 1px 1px 1px;
 }
-
 /* эксперимент с отзывчивым изображением */
 .portfolio-project .project-img {
     display: block;
     max-width: 100%;
     height: auto;
 }
+.doing-item {
+    position: relative;
+}
+.doing-background{
+    position: absolute;
+    background-color: rgba(47, 48, 58, 0.8);
+    width: 100%;
+    height: 70px;
+    bottom: 0px;
+    padding-top: 27px;
+    padding-bottom: 27px;
+}
+.doing-subtitle {
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--white-tx-bg-color);
+    text-align: center;
+}
 
-
-
-
-    
