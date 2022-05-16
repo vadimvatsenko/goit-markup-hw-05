@@ -261,6 +261,7 @@ ul {
     opacity: 1;
 
     transition: opacity 250ms var(--timing-function);
+
 }
 /* поведение backdrop когда скрывается */
 .backdrop.is-hidden {
@@ -270,14 +271,16 @@ ul {
 /* модальное окно */
 .modal {
     position: absolute;
-    min-width: 528px;
-    min-height: 581px;
+    width: 528px;
+    height: 581px;
+    padding: 40px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: var(--white-tx-bg-color);
     box-shadow: var(--modal-box-shadow);
     border-radius: 4px;
+
 }
 /* кнопка в модальном окне */
 .modal-button {
@@ -373,9 +376,11 @@ ul {
 }
 .doing-subtitle {
     position: absolute;
-    padding-top: 27px;
-    padding-bottom: 27px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     bottom: 0;
+    height: 70px;
     width: 100%;
     color: var(--white-tx-bg-color);
     background-color: var(--doing-subtitle-bg);
@@ -383,7 +388,6 @@ ul {
     font-weight: 700;
     font-size: 14px;
     text-transform: uppercase;
-    text-align: center;
     z-index: 1;
 }
 .doing-title,
@@ -560,6 +564,9 @@ ul {
 .footer-icons {
     margin-top: 20px;
 }
+.footer-social .icon-img{
+    fill: var(--white-tx-bg-color);
+}
 /* portfolio  */
 /* Главного заголвка Портфолио нет в макете, потому скрыт */
 .portfolio-title {
@@ -677,8 +684,5 @@ ul {
 .project-link:focus .overlay-descr {
     transform: translateY(0)
 }
-
-
-
 
 
